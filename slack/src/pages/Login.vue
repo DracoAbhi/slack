@@ -9,7 +9,7 @@
 
     <!-- Errors -->
     <div class="alert alert-danger" v-if="hasErrors">
-        <!-- <div v-for="error in errors">{{ error }}</div> -->
+        <div v-for="error in errors">{{ error }}</div>
     </div>
     <div class="container-fluid">
         <div class="row mt-5">
@@ -73,6 +73,16 @@ export default {
                 this.loading = false
             })
         },
+
+        //save user to database
+        saveUserToUsersRef(user){
+
+            return this.usersRef.child(user.uid).set({
+                name: user.displayName,
+                avatar: user.photoURL
+            })
+        },
+
         loginWithTwitter(){
             //Loading status
             this.loading = true
