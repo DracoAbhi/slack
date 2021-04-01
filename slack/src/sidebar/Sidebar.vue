@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <h2 style="color:#FF355E">#SLACK#</h2>
+        <h2 style="color:#FF355E">SOCIALGRAM</h2>
         <hr style="border: 1px solid white;">
 
         <span>

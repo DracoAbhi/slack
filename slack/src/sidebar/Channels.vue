@@ -33,7 +33,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button @click="addChannel" type="button" class="btn btn-primary">Add Channel</button>
               </div>
             </div>
@@ -133,6 +133,7 @@ import mixin from '../mixins'
             setActiveChannel(channel) {
                 return channel.id === this.currentChannel.id
             },
+            
             // change channel
             changeChannel(channel) {
                 // reset notifications

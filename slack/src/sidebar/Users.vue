@@ -146,28 +146,32 @@ import mixin from '../mixins'
                 } else {
                     this.resetNotifications()
                 }
-                // to change channel, you need channel id
-                // to get channel id, use getChannelId() method below
+                // to change channel, id is fetched from the getChannelId() method
                 let channelId = this.getChannelId(user.uid)
+                
                 // create channel object with id and name
                 let channel = {id: channelId, name: user.name}
                 this.channel = channel
                 this.$store.dispatch('setPrivate', true)
                 this.$store.dispatch('setCurrentChannel', channel)
             },
+            
             isActive(user) {
                 let channelId = this.getChannelId(user.uid)
                 return this.currentChannel.id === channelId
             },
+
             // get channel id
             getChannelId(userId) {
                 // use this format to create channel smallerUserId/biggerUserId
                 return userId < this.currentUser.uid ? userId+'/'+this.currentUser.uid : this.currentUser.uid +'/'+userId 
             }
         },
+        
         mounted() {
             this.addListeners()
         },
+        
         beforeDestroy() {
             this.detachListeners()
         }
@@ -175,6 +179,6 @@ import mixin from '../mixins'
 </script>
 
 <style scoped>
-    .online{color:green;}
+    .online{color:lime;}
     .offline{color:red;}
 </style>

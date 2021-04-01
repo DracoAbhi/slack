@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="jumbotron bg-primary text-white text-center">
-      <h2 class="lead display-3">#SLACK#</h2>
+      <h2 class="lead display-3">SOCIALGRAM</h2>
       <hr>
       <p>Realtime communication at it's best!</p>
       <hr>

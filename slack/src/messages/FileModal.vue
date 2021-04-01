@@ -20,7 +20,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button @click="sendFile" type="button" class="btn btn-primary">Send file</button>
               </div>
             </div>
