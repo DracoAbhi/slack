@@ -24,20 +24,17 @@ Vue.config.productionTip = false
 
   window.firebase = firebase;
 
-  const unsubscribe = firebase.auth().onAuthStateChanged( user => {
+  const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    // dispatch user
+    store.dispatch('setUser', user);
 
-    //dispatch user
-    store.dispatch('setUser',user)
-      
     new Vue({
-      el: '#app',
-      router,
-      store,
-      components: { App },
-      template: '<App/>'
-    })
-
-    //Recursive call to check the auth state
-    unsubscribe()
-
-  })
+        el: '#app',
+        router,
+        store,
+        components: { App },
+        template: '<App/>'
+    });
+    // recursion - this function calls itself on auth state change
+    unsubscribe();
+});

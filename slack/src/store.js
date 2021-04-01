@@ -1,35 +1,53 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-//Creation of a State array to hold data
+// create state that holds data
 const state = {
-    currentUser : null
+    currentUser: null,
+    currentChannel: null,
+    isPrivate: false
 };
 
-//Updates or changes in state
+// update state data through mutations
 const mutations = {
-    SET_USER(state,user)
-    {
+    SET_USER(state, user) {
         state.currentUser = user;
+    },
+
+    SET_CURRENT_CHANNEL(state, channel) {
+        state.currentChannel = channel;
+    },
+
+    SET_PRIVATE(state, isPrivate) {
+        state.isPrivate = isPrivate;
     }
 };
 
-//Actions to be performed
+// create actions for mutations with necessary data
 const actions = {
-    setUser(state, user)
-    {
-        state.commit('SET_USER',user)
+    setUser(state, user) {
+        state.commit('SET_USER', user);
+    },
+
+    setCurrentChannel({ commit }, channel) {
+        commit('SET_CURRENT_CHANNEL', channel);
+    },
+
+    setPrivate({ commit }, isPrivate) {
+        commit('SET_PRIVATE', isPrivate);
     }
 };
 
-//get data from state
+// get data from state
 const getters = {
-    currentUser : state => state.currentUser
+    currentUser: state => state.currentUser,
+    currentChannel: state => state.currentChannel,
+    isPrivate: state => state.isPrivate
 };
 
-//Vuex Store
+// create vuex store
 const store = new Vuex.Store({
     state,
     mutations,
