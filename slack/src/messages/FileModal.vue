@@ -38,6 +38,7 @@ import mime from 'mime-types'
                 authorized: ['image/jpeg', 'image/jpg', 'image/png']
             }
         },
+        
         methods: {
             isValid(filename) {
                 let index = this.authorized.indexOf(mime.lookup(filename))
@@ -59,7 +60,8 @@ import mime from 'mime-types'
                     }
                 }
             },
-            // reset form
+            
+            // reset form for next upload
             resetForm() {
                 $('.form').trigger('reset')
                 this.file = null

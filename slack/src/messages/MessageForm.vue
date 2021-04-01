@@ -30,7 +30,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import FileModal from './FileModal'
-import uuidV4 from 'uuid/V4'
+import uuidV4 from 'uuid/v4'
 import storage from 'firebase/storage'
     export default {
         name: 'message-form',
@@ -44,8 +44,10 @@ import storage from 'firebase/storage'
             uploadState: null
           }
         },
+        
         computed: {
           ...mapGetters(['currentChannel', 'currentUser', 'isPrivate']),
+          
           // upload state
           uploadLabel() {
             switch(this.uploadState) {
@@ -61,16 +63,6 @@ import storage from 'firebase/storage'
         },
         methods: {
           sendMessage() {
-            // construct new message object
-            // let newMessage = {
-            //   content: this.message,
-            //   timestamp: firebase.database.ServerValue.TIMESTAMP,
-            //   user: {
-            //     name: this.currentUser.displayName,
-            //     avatar: this.currentUser.photoURL,
-            //     id: this.currentUser.uid
-            //   }
-            // }
             
             // use some validation
             if(this.currentChannel !== null) {
@@ -90,6 +82,7 @@ import storage from 'firebase/storage'
               }
             }
           },
+          
           createMessage(fileUrl = null) {
             // create message object to push to firebase
             let message = {
@@ -103,27 +96,36 @@ import storage from 'firebase/storage'
             if(fileUrl == null) {
               // either send message with content
               message['content'] = this.message
-            } else {
+            } 
+            else {
               // or send the message with image
               message['image'] = fileUrl
             }
             return message
           },
+          
           uploadFile(file, metadata) {
-            // console.log('file: ', file, ' metadata: ', metadata)
-            if(file === null) return false
+            if(file === null) 
+               return false
+              
               let pathToUpload = this.currentChannel.id
               let ref = this.$parent.getMessagesRef()
               let filePath = this.getPath() + '/' + uuidV4() + '.jpg'
+              
               this.uploadTask = this.storageRef.child(filePath).put(file, metadata)
+              
+              //for uploading state
               this.uploadState = "uploading"
+              
               // on upload state change
               this.uploadTask.on('state_changed', snapshot => {
                 // upload in progress
                 let percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 $(".progress-bar").css("width", percent+'%')
-              }, error => {
-                // error
+              }, 
+              
+              error => {
+                // push errors in the error array
                 this.errors.push(error.message)
                 this.uploadState = 'error'
                 this.uploadTask = null
@@ -140,6 +142,7 @@ import storage from 'firebase/storage'
                 })
               })
           },
+          
           sendFileMessage(fileUrl, ref, pathToUpload) {
             ref.child(pathToUpload).push().set(this.createMessage(fileUrl)).then(() => {
               this.$nextTick(() => {
@@ -149,14 +152,17 @@ import storage from 'firebase/storage'
               this.errors.push(error.message)
             })
           },
-          // folder directory to store files in firebase storage
+          
+          // folder directory to store uploaded files in firebase storage
           getPath() {
             if(this.isPrivate) {
               return 'chat/private/'+this.currentChannel.id
-            } else {
+            } 
+            else {
               return 'chat/public'
             }
           },
+          
           openFileModal() {
             $("#fileModal").appendTo("body").modal('show');
             console.log('openfilemodal')
@@ -165,6 +171,7 @@ import storage from 'firebase/storage'
         mounted() {
           $("html, body").scrollTop($(document).height());
         },
+        
         beforeDestroy() {
           if(this.uploadTask !== null) {
             this.uploadTask.cancel()
